@@ -108,6 +108,8 @@ platform_toolsets:
   - todo
   - memory
   - session_search
+  telegram:
+  - hermes-telegram
 
 memory:
   memory_enabled: true
@@ -136,6 +138,11 @@ security:
 
 streaming: true
 _config_version: 24
+
+telegram:
+  allowed_chats: ''
+  channel_prompts: {}
+  reactions: false
 
 terminal:
   cwd: /Users/alex/luchik
