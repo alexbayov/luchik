@@ -18,7 +18,31 @@ build/
 # OS
 .DS_Store
 
-# Hermes runtime
+# Hermes runtime — не коммитить
 luchik-profile/sessions/
 luchik-profile/logs/
 luchik-profile/cache/
+luchik-profile/audio_cache/
+luchik-profile/image_cache/
+luchik-profile/sandboxes/
+luchik-profile/memories/
+luchik-profile/pairing/
+luchik-profile/hooks/
+luchik-profile/cron/
+luchik-profile/kanban/
+luchik-profile/bin/
+luchik-profile/curator/
+
+# Runtime state files
+luchik-profile/state.db
+luchik-profile/state.db-*
+luchik-profile/kanban.db
+luchik-profile/kanban.db.*
+luchik-profile/channel_directory.json
+luchik-profile/gateway.lock
+luchik-profile/gateway_state.json
+luchik-profile/auth.json
+luchik-profile/auth.lock
+luchik-profile/.clean_shutdown
+luchik-profile/.skills_prompt_snapshot.json
+luchik-profile/.env.lock

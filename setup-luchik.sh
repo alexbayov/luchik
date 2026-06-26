@@ -7,7 +7,7 @@ set -euo pipefail
 #   cd luchik && bash setup-luchik.sh
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-PROFILE_DIR="${HERMES_HOME:-$HOME/.hermes}"
+PROFILE_DIR="${HERMES_HOME:-$HOME/.luchik}"
 VENV_DIR="$SCRIPT_DIR/.venv"
 PYTHON_BIN="${PYTHON_BIN:-python3}"
 
@@ -21,9 +21,9 @@ if ! command -v "$PYTHON_BIN" &>/dev/null; then
   exit 1
 fi
 
-PY_VERSION=$("$PYTHON_BIN" -c 'import sys; print(f"{sys.version_info.major}.{sys.version_info.minor}")')
-PY_MAJOR=$("$PYTHON_BIN" -c 'import sys; print(sys.version_info.major)')
-PY_MINOR=$("$PYTHON_BIN" -c 'import sys; print(sys.version_info.minor)')
+PY_VERSION="$("$PYTHON_BIN" -c 'import sys; print(f"{sys.version_info.major}.{sys.version_info.minor}")')"
+PY_MAJOR="$("$PYTHON_BIN" -c 'import sys; print(sys.version_info.major)')"
+PY_MINOR="$("$PYTHON_BIN" -c 'import sys; print(sys.version_info.minor)')"
 if [ "$PY_MAJOR" -lt 3 ] || ([ "$PY_MAJOR" -eq 3 ] && [ "$PY_MINOR" -lt 12 ]); then
   echo "✗ Нужен Python 3.12+, найден $PY_VERSION"
   echo "  Установите через uv:  uv python install 3.12"
@@ -44,10 +44,14 @@ echo "✓ Зависимости установлены"
 echo "→ Настройка профиля в $PROFILE_DIR ..."
 mkdir -p "$PROFILE_DIR/skills"
 
-# Копируем профиль
-cp -r "$SCRIPT_DIR/luchik-profile/"* "$PROFILE_DIR/"
+# Копируем профильные файлы (config, SOUL, USER, MEMORY, .env.example)
+for f in config.yaml SOUL.md USER.md MEMORY.md .env.example; do
+  if [ -f "$SCRIPT_DIR/luchik-profile/$f" ]; then
+    cp "$SCRIPT_DIR/luchik-profile/$f" "$PROFILE_DIR/$f"
+  fi
+done
 
-# Копируем скилы (в skills/ внутри профиля)
+# Копируем скилы
 if [ -d "$SCRIPT_DIR/luchik-profile/skills" ]; then
   cp -r "$SCRIPT_DIR/luchik-profile/skills/"* "$PROFILE_DIR/skills/" 2>/dev/null || true
 fi
@@ -84,5 +88,6 @@ fi
 echo ""
 echo "═══════════════════════════════════════════════"
 echo "  ✓ Лучик установлен!"
-echo "  Запуск: luchik chat"
+echo "  Запуск: luchik chat      — чат"
+echo "  Запуск: luchik -g        — gateway (Telegram)"
 echo "═══════════════════════════════════════════════"

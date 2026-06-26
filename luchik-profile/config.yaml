@@ -136,3 +136,6 @@ security:
 
 streaming: true
 _config_version: 24
+
+terminal:
+  cwd: /Users/alex/luchik
