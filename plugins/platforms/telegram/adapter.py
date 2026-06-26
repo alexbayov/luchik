@@ -4015,6 +4015,14 @@ class TelegramAdapter(BasePlatformAdapter):
         buttons: list = []
         for i, model_id in enumerate(page_models):
             abs_idx = start + i
+            # Defensive: coerce non-string entries (dict, None) to str.
+            # Provider configs may store models as list[dict] with {id, name};
+            # the picker expects plain strings.
+            if not isinstance(model_id, str):
+                if isinstance(model_id, dict):
+                    model_id = model_id.get("id") or model_id.get("name") or str(model_id)
+                else:
+                    model_id = str(model_id) if model_id else "unknown"
             short = model_id.split("/")[-1] if "/" in model_id else model_id
             if len(short) > 38:
                 short = short[:35] + "..."

@@ -1947,6 +1947,8 @@ def list_authenticated_providers(
                         models_list.append(m)
             elif isinstance(cfg_models, list):
                 for m in cfg_models:
+                    if isinstance(m, dict):
+                        m = m.get("id") or m.get("name") or ""
                     if m and m not in models_list:
                         models_list.append(m)
 
@@ -2144,6 +2146,8 @@ def list_authenticated_providers(
                         groups[group_key]["models"].append(m)
             elif isinstance(cfg_models, list):
                 for m in cfg_models:
+                    if isinstance(m, dict):
+                        m = m.get("id") or m.get("name") or ""
                     if m and m not in groups[group_key]["models"]:
                         groups[group_key]["models"].append(m)
 
