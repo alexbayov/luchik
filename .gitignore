@@ -46,3 +46,5 @@ luchik-profile/auth.lock
 luchik-profile/.clean_shutdown
 luchik-profile/.skills_prompt_snapshot.json
 luchik-profile/.env.lock
+.local/
+protocol/
